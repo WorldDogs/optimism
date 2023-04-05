@@ -205,6 +205,9 @@ interface IDisputeGame_OutputAttestation is IDisputeGame {
     /// @custom:invariant The `signatureThreshold` may never be greater than the length of the `signerSet`.
     function signatureThreshold() public view returns (uint16 _signatureThreshold);
 
+    /// @notice Returns the L2 Block Number that the `rootClaim` commits to. Exists within the `extraData`.
+    function l2BlockNumber() public view returns (uint256 _l2BlockNumber);
+
     /// @notice Challenge the `rootClaim`.
     /// @dev - If the `ecrecover`ed address that created the signature is not a part of the
     ///      signer set returned by `signerSet`, this function should revert.

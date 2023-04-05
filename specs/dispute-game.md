@@ -34,13 +34,16 @@ that is embedded in the `AttestationDisputeGame`'s `extraData`.
 
 The `AttestationDisputeGame` should be configured with a quorum ratio at deploy time. It should also
 maintain a set of attestor accounts, which is fetched by the `SystemConfig` contract and snapshotted
-at deploy time. The ability to add and remove attestor accounts should be enabled by a single immutable
+at deploy time. This snapshot is necessary to have a fixed upper bound on resolution cost, which in
+turn gives a fix cost for the necessary bond attached to output proposals.
+
+The ability to add and remove attestor accounts should be enabled by a single immutable
 account that controls the `SystemConfig`. It should be impossible to remove accounts such that quorum
 is not able to be reached. It is ok to allow accounts to be added or removed in the middle of an
 open challenge, as it will not affect the `signerSet` that exists within open challenges.
 
-A challenge is created when an EIP-712 based attestation is presented to the `DisputeGameFactory` contract
-and the signer is in the set of attestors. Multiple challenges should be able to run in parallel.
+A challenge is created when an alternative output root for a given `l2BlockNumber` is presented to the
+`DisputeGameFactory` contract. Multiple challenges should be able to run in parallel.
 
 For simplicity, the `AttestationDisputeGame` does not need to track what output proposals are
 committed to as part of the attestations. It only needs to check that the attested output root
@@ -55,6 +58,14 @@ defined as the following:
 ```solidity
 TYPE_HASH = keccak256("Dispute(bytes32 outputRoot,uint256 l2BlockNumber)");
 ```
+
+The components for the `typeHash` are as follows:
+
+- `outputRoot` - The **correct** output root that commits to the given `l2BlockNumber`. This should be a
+  positive attestation where the `rootClaim` of the `AttestationDisputeGame` is the **correct** output root
+  for the given `l2BlockNumber`.
+- `l2BlockNumber` - The L2 block number that the `outputRoot` commits to. The `outputRoot` should commit
+  to the entirety of the L2 state from genesis up to and including this `l2BlockNumber`.
 
 ### Why EIP-712
 
