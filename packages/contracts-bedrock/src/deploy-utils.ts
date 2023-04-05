@@ -356,6 +356,26 @@ export const doOwnershipTransfer = async (opts: {
 }
 
 /**
+ * Check if the script should submit the transaction or wait for the deployer to do it manually.
+ *
+ * @param hre HardhatRuntimeEnvironment.
+ * @param ovveride Allow m
+ * @returns True if the current step is the target step.
+ */
+export const liveDeployer = async (opts: {
+  hre: HardhatRuntimeEnvironment
+  disabled: string | undefined
+}): Promise<boolean> => {
+  if (!!opts.disabled) {
+    return false
+  }
+  const { deployer } = await opts.hre.getNamedAccounts()
+  return (
+    deployer.toLowerCase() === opts.hre.deployConfig.controller.toLowerCase()
+  )
+}
+
+/**
  * Mini helper for checking if the current step is a target step.
  *
  * @param dictator SystemDictator contract.
