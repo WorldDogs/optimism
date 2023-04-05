@@ -68,11 +68,9 @@ given a `GameType` and a root `Claim`. Challenger agents will listen to the
 `DisputeGameCreated` events that are emitted by the factory in order to keep up
 with on-going disputes in the protocol.
 
-For the factory, a [Huff](https://huff.sh) implementation of
-[`clones-with-immutable-args`](https://github.com/wighawag/clones-with-immutable-args/tree/master)
+For the factory, a [`clones-with-immutable-args`](https://github.com/wighawag/clones-with-immutable-args/tree/master)
 by @wighawag is used to create Clones. Each `GameType` has a corresponding implementation within the factory,
-and when a new game is created, the factory creates a clone of the `GameType`'s
-pre-deployed implementation contract.
+and when a new game is created, the factory creates a clone of the `GameType`'s pre-deployed implementation contract.
 
 When the `DisputeGameFactory` creates a new `DisputeGame` contract, it calls
 `initialize()` on the clone to set up the game.
