@@ -8,7 +8,6 @@
   - [Smart Contract Implementation](#smart-contract-implementation)
     - [Attestation Structure](#attestation-structure)
   - [Why EIP-712](#why-eip-712)
-  - [Offchain Actor](#offchain-actor)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
