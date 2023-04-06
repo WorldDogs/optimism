@@ -37,8 +37,9 @@ bond attached to the claims they disprove.
 ## Event and Response Lifecycle
 
 The Challenger agent is expected to be able to listen for and respond to several different events
-on the data availability layer. These events and responses differ depending on the type of dispute game being
-played. For more information on the separate types of dispute games, see the
+on the data availability layer. These events and responses are parameterized depending on the type
+of dispute game being played, and the Challenger listens to different events and responds uniquely
+to each of the different game types. For specification of dispute game types, see the
 [Dispute Game Interfaces specification](./dispute-game-interfaces.md) and
 [Dispute Game specification](./dispute-game.md).
 
